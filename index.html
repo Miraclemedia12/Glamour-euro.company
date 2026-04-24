@@ -671,6 +671,53 @@
     margin: 5px 0;
 }
 
+/* Horizontal video layout */
+.video-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+}
+
+/* Hide scrollbar */
+.video-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Each video */
+.video-item {
+    flex: 0 0 85%;
+    max-width: 400px;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Videos */
+.video-item video {
+    width: 100%;
+    border-radius: 16px;
+    background: #000;
+}
+
+/* 🔥 subtle idle sliding effect */
+.video-slider:not(:hover) .video-item {
+    animation: videoShake 3s ease-in-out infinite;
+}
+
+/* Stop movement when hovering or playing */
+.video-item:hover,
+.video-item:focus-within {
+    animation: none !important;
+}
+
+/* Animation */
+@keyframes videoShake {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
 
     </style>
 </head>
@@ -750,10 +797,29 @@
 </section>
 
     <div id="about-section" class="unified-container video-box reveal">
-        <video src="video.mp4" poster="video.mp4" controls playsinline></video>
-   <button class="box-btn" onclick="window.location.href='reward.html'">
+
+<div class="video-slider">
+
+  <!-- VIDEO 1 -->
+  <div class="video-item">
+    <video poster="thumb1.jpg" controls preload="none" playsinline>
+      <source src="video1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div class="video-item">
+    <video poster="thumb2.jpg" controls preload="none" playsinline>
+      <source src="video2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+</div>
+
+<button class="box-btn" onclick="window.location.href='reward.html'">
     CREATE ACCOUNT <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
 </button>
+
 </div>
 
     <div id="features-section" class="unified-container bright-header reveal" style="text-align: left;">
@@ -964,7 +1030,7 @@
 </form>
 
 <p style="text-align:center; color:#aaa; margin-top:10px;">
-Your testimony will appear after you have Registered
+Your testimony will appear here.
 </p>
 </div>
 
