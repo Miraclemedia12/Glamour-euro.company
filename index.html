@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -648,6 +649,28 @@
             animation: shake 4s infinite;
         }
 
+        /* 🔥 Fix tall testimonial boxes */
+.testimonial-card {
+    min-height: auto !important;
+    padding: 15px !important;
+}
+
+/* Reduce spacing inside */
+.testimonial-card p {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.testimonial-card h4 {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.testimonial-card .stars {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
 
     </style>
 </head>
@@ -856,6 +879,94 @@
             </div>
         </div>
     </div>
+   <!-- 🔥 TESTIMONIALS UPDATED -->
+<div class="unified-container reveal" style="margin-top:60px;">
+<h2 style="text-align:center; font-weight:900; margin-bottom:30px;">WHAT OUR USERS SAY</h2>
+
+<div class="works-grid">
+
+<div class="work-box testimonial-card">
+  <div class="testimonial-header" style="display:flex; gap:15px; align-items:center;">
+    <img src="https://glamoursite.shop/images/suzan.png" style="width:50px; height:50px; border-radius:50%;">
+    <div>
+      <h3 style="margin:0;">Suzan Chigozie</h3>
+      <small>April 9, 2026</small>
+    </div>
+  </div>
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+  <h4>Don't Miss Glamour, Join Today!</h4>
+  <p>I earned my first online income here and it really helped me financially as a student.</p>
+  <i class="fas fa-location-dot" style="color:#ffd700;"></i>
+<span>Lagos University, Nigeria</span>
+</div>
+
+<div class="work-box testimonial-card">
+  <div class="testimonial-header" style="display:flex; gap:15px; align-items:center;">
+    <img src="https://glamoursite.shop/images/daniel.png" style="width:50px; height:50px; border-radius:50%;">
+    <div>
+      <h3 style="margin:0;">Daniel Okafor</h3>
+      <small>March 8, 2026</small>
+    </div>
+  </div>
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+  <h4>Best Platform Ever</h4>
+  <p>Glamour helped me earn consistently every day without stress. Highly recommended!</p>
+  <i class="fas fa-location-dot" style="color:#ffd700;"></i>
+<span>ABUJA, Nigeria</span>
+</div>
+
+<div class="work-box testimonial-card">
+  <div class="testimonial-header" style="display:flex; gap:15px; align-items:center;">
+    <img src="https://glamoursite.shop/images/fatima.png" style="width:50px; height:50px; border-radius:50%;">
+    <div>
+      <h3 style="margin:0;">Fatima Bello</h3>
+      <small>January 23, 2026</small>
+    </div>
+  </div>
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+  <h4>Life Changing Experience</h4>
+  <p>I started with fear and now I earn weekly. This platform is truly amazing.</p>
+  <i class="fas fa-location-dot" style="color:#ffd700;"></i>
+<span>Port Harcourt, Nigeria</span>
+</div>
+
+<div class="work-box testimonial-card">
+  <div class="testimonial-header" style="display:flex; gap:15px; align-items:center;">
+    <img src="https://glamoursite.shop/images/fatima.png" style="width:50px; height:50px; border-radius:50%;">
+    <div>
+      <h3 style="margin:0;">Freya Elise</h3>
+      <small>April 16, 2026</small>
+    </div>
+  </div>
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+  <h4>Thank You for Changing My Life</h4>
+  <p>As a single mother, I struggled to take care of my child after losing my job. I joined Glamour with doubt, but within a short time I started earning weekly. This platform has truly helped me stand again financially and take care of my family.</p>
+  <i class="fas fa-location-dot" style="color:#ffd700;"></i>
+<span>Berlin, Germany </span>
+</div>
+
+</div>
+</div>
+<!-- 💬 COMMENT SECTION (ADMIN APPROVED) -->
+<div class="unified-container reveal" style="margin-top:60px;">
+<h2 style="text-align:center; font-weight:900; margin-bottom:20px;">Leave a Testimony</h2>
+
+<form id="commentForm" style="max-width:500px; margin:auto;">
+    <input type="text" placeholder="Your Name" required 
+        style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:none;">
+    
+    <textarea placeholder="Your Testimony..." required 
+        style="width:100%; padding:12px; height:120px; border-radius:10px; border:none;"></textarea>
+    
+    <button type="submit" class="main-join-btn" style="width:100%; margin-top:10px;">
+        Submit 
+    </button>
+</form>
+
+<p style="text-align:center; color:#aaa; margin-top:10px;">
+Your testimony will appear after you have Registered
+</p>
+</div>
 
     <div id="faq-section" class="unified-container faq-section reveal">
         <h2 style="text-align: center; font-style: italic; font-weight: 950; text-transform: uppercase; margin-bottom: 30px;">Frequently Asked Questions</h2>
@@ -1027,6 +1138,12 @@ function modernShrink(btn) {
         window.location.href = 'reward.html';
     }, 2000);
 }
+
+document.getElementById("commentForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("your Testimony is Submitted! Waiting for admin approval.");
+    this.reset();
+});
    
  </script>
 </body>
