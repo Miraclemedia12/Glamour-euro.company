@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -670,51 +671,49 @@
     margin: 5px 0;
 }
 
-/* Horizontal video layout */
-.video-slider {
+/* Carousel container */
+.video-carousel {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding-bottom: 10px;
+    padding: 20px 10px;
 }
 
 /* Hide scrollbar */
-.video-slider::-webkit-scrollbar {
+.video-carousel::-webkit-scrollbar {
     display: none;
 }
+.video-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
-/* Each video */
-.video-item {
-    flex: 0 0 85%;
-    max-width: 400px;
+/* Each card */
+.video-card {
+    flex: 0 0 80%; /* 👈 THIS makes next one show behind */
     scroll-snap-align: center;
     transition: transform 0.3s ease;
 }
 
-/* Videos */
-.video-item video {
+/* Video style */
+.video-card video {
     width: 100%;
-    border-radius: 16px;
+    border-radius: 20px;
     background: #000;
 }
 
-/* 🔥 subtle idle sliding effect */
-.video-slider:not(:hover) .video-item {
-    animation: videoShake 3s ease-in-out infinite;
+/* 👇 THIS creates the "box behind" effect */
+.video-card {
+    transform: scale(0.92);
+    opacity: 0.7;
 }
 
-/* Stop movement when hovering or playing */
-.video-item:hover,
-.video-item:focus-within {
-    animation: none !important;
-}
-
-/* Animation */
-@keyframes videoShake {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
+/* Active (center) card */
+.video-card:focus-within,
+.video-card:hover {
+    transform: scale(1);
+    opacity: 1;
 }
 
 
@@ -797,19 +796,26 @@
 
     <div id="about-section" class="unified-container video-box reveal">
 
-<div class="video-slider">
+<div class="video-carousel">
 
   <!-- VIDEO 1 -->
-  <div class="video-item">
+  <div class="video-card">
     <video poster="thumb1.jpg" controls preload="none" playsinline>
       <source src="video1.mp4" type="video/mp4">
     </video>
   </div>
 
   <!-- VIDEO 2 -->
-  <div class="video-item">
+  <div class="video-card">
     <video poster="thumb2.jpg" controls preload="none" playsinline>
-      <source src="video2.mov" type="video/mp4">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- VIDEO 3 -->
+  <div class="video-card">
+    <video poster="thumb3.jpg" controls preload="none" playsinline>
+      <source src="video3.mp4" type="video/mp4">
     </video>
   </div>
 
