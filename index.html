@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <title>Glamour Official | Empowering Your Time</title>
+    <title>Glamour Official | Empowering Your Lifestyle</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet"> -->
     <style>
@@ -17,6 +17,16 @@
             --border: rgba(255, 255, 255, 0.15);
             --container-width: 1100px;
         }
+
+        html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Stops the side-to-side shifting */
+    position: relative;
+}
+
+* {
+    box-sizing: border-box; /* Ensures padding doesn't push width over 100% */
+}
 
         /* --- NEW ANIMATION SYSTEM --- */
         .reveal {
@@ -106,6 +116,8 @@
     line-height: 1.6;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
         /* UPDATED TOPBAR: Transparent with Shadow */
@@ -189,18 +201,71 @@
 
         .unified-container { width: 90%; max-width: var(--container-width); margin-left: auto; margin-right: auto; box-sizing: border-box; }
 
-        .video-box {
-            margin-top: 20px;
-            margin-bottom:-20px;
-            background: var(--glass);
-            border: 2px solid var(--primary-gold);
-            border-radius: 24px;
-            padding: 19px;
-            text-align: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
-        }
+       /* --- AMBASSADOR 3D STACK SYSTEM --- */
+.ambassador-scene {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10px;
+}
 
-        .video-box video { width: 100%; height: auto; border-radius: 16px; margin-bottom: 20px; background: #000; }
+.stack-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glass-video-card {
+    position: absolute;
+    width: 280px; /* Vertical Shape */
+    height: 430px;
+    background: rgba(255, 255, 255, 0.07); /* Match your feature box */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    padding: 10px;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    user-select: none;
+}
+
+/* MOBILE FIX FOR AMBASSADORS */
+@media screen and (max-width: 480px) {
+    .glass-video-card {
+        width: 240px; /* Reduced from 240px */
+        height: 360px; /* Reduced from 380px to keep it vertical */
+    }
+    
+    .ambassador-scene {
+        height: 450px; /* Pulls the section tighter on mobile */
+    }
+
+    .card-right { transform: translate3d(30%, 0, -100px) scale(0.8); }
+    .card-left  { transform: translate3d(-30%, 0, -100px) scale(0.8); }
+}
+
+.glass-video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+}
+
+/* 3D Positions */
+.card-front { transform: translate3d(0, 0, 0) scale(1); z-index: 3; opacity: 1; }
+.card-right { transform: translate3d(40%, 0, -100px) scale(0.85); z-index: 2; opacity: 0.6; filter: blur(2px); }
+.card-left  { transform: translate3d(-40%, 0, -100px) scale(0.85); z-index: 2; opacity: 0.6; filter: blur(2px); }
+.card-back  { transform: translate3d(0, 0, -200px) scale(0.7); z-index: 1; opacity: 0; }
+}
         .bright-header { text-align: center; padding: 60px 0 30px; }
         .bright-header h2.sliding-gold {
     /* 1. THE FONT: Exactly like your Hero Title */
@@ -208,8 +273,8 @@
     font-weight: 900; 
     
     /* 2. THE SPACING: This closes the gap between "What do we" and "Represent" */
-    line-height: 0.9; 
-    letter-spacing: -2px; /* Tighter letters for that premium look */
+    line-height: 0.2; 
+    letter-spacing: 1px; /* Tighter letters for that premium look */
     
     /* 3. THE SIZE: Matches the Hero Title scale */
     font-size: clamp(2.5rem, 8vw, 4.5rem); 
@@ -222,7 +287,7 @@
         .work-box {
             background: var(--glass);
             border: 1px solid var(--border);
-            max-width: 1700px;
+            max-width: 2000px;
             border-radius: 20px;
             padding: 15px;
             text-align: center;
@@ -648,74 +713,89 @@
             box-shadow: 0 10px 40px rgba(55, 181, 212, 0.429);
             animation: shake 4s infinite;
         }
-
-        /* 🔥 Fix tall testimonial boxes */
-.testimonial-card {
-    min-height: auto !important;
-    padding: 15px !important;
+/* CAC IMAGE SWITCHER */
+.cac-switcher {
+    position: relative;
+    width: 100%;
+    height: 460px; /* Matches your current image height */
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
-/* Reduce spacing inside */
-.testimonial-card p {
+.cac-switcher img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Logic to hide/show images */
+.cac-switcher img.hidden {
+    opacity: 0;
+}
+
+.glamour-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+}
+
+.glamour-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    padding: 30px 25px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 320px;
+
+    transform: scale(0.8);
+    transition: 0.4s ease;
+}
+
+.glamour-popup.show .popup-box {
+    transform: scale(1);
+}
+
+.popup-box i {
+    font-size: 40px;
+    color: #00ffff;
     margin-bottom: 10px;
-    font-size: 13px;
 }
 
-.testimonial-card h4 {
-    margin: 5px 0;
+.popup-box h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.popup-box p {
+    color: #ccc;
     font-size: 14px;
 }
 
-.testimonial-card .stars {
-    font-size: 12px;
-    margin: 5px 0;
+.popup-box i {
+    font-size: 40px;
+    color: #ffd700; /* GOLD instead of blue */
+    margin-bottom: 10px;
 }
-
-/* Carousel container */
-.video-carousel {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 20px 10px;
-}
-
-/* Hide scrollbar */
-.video-carousel::-webkit-scrollbar {
-    display: none;
-}
-.video-carousel {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Each card */
-.video-card {
-    flex: 0 0 80%; /* 👈 THIS makes next one show behind */
-    scroll-snap-align: center;
-    transition: transform 0.3s ease;
-}
-
-/* Video style */
-.video-card video {
-    width: 100%;
-    border-radius: 20px;
-    background: #000;
-}
-
-/* 👇 THIS creates the "box behind" effect */
-.video-card {
-    transform: scale(0.92);
-    opacity: 0.7;
-}
-
-/* Active (center) card */
-.video-card:focus-within,
-.video-card:hover {
-    transform: scale(1);
-    opacity: 1;
-}
-
 
     </style>
 </head>
@@ -794,37 +874,24 @@
     
 </section>
 
-    <div id="about-section" class="unified-container video-box reveal">
-
-<div class="video-carousel">
-
-  <!-- VIDEO 1 -->
-  <div class="video-card">
-    <video poster="thumb1.jpg" controls preload="none" playsinline>
-      <source src="video1.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <!-- VIDEO 2 -->
-  <div class="video-card">
-    <video poster="thumb2.jpg" controls preload="none" playsinline>
-      <source src="video2.mov" type="video/mp4">
-    </video>
-  </div>
-
-  <!-- VIDEO 3 -->
-  <div class="video-card">
-    <video poster="thumb3.jpg" controls preload="none" playsinline>
-      <source src="video3.mp4" type="video/mp4">
-    </video>
-  </div>
-
+    <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 5px; margin-top: 20px;">
+    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 25px 50px; border-radius: 30px; display: inline-block; text-align: center; max-width: 90%;">
+        <h1 style="font-family: 'Inter', sans-serif; font-weight: 900; line-height: 1.1; margin: 0;">
+            <span style="color: #ffffff; font-size: 30px; display: block;">Glamour Elite</span>
+            <span class="sliding-gold" style="font-size: 30px; display: block;">Ambassadors <i class="fas fa-briefcase icon-hover"style="font-size: 30px; color: #ffffff;"></i>
+            </span>
+        </h1>
+    </div>
 </div>
 
-<button class="box-btn" onclick="window.location.href='reward.html'">
-    CREATE ACCOUNT <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
-</button>
-
+    <div class="ambassador-scene" id="trigger-area">
+        <div class="stack-container" id="videoStack">
+            <div class="glass-video-card card-front"><video src="video.mp4" controls playsinline onplay="this.muted=false" onended="playNextVideo()"></video></div>
+<div class="glass-video-card card-right"><video src="video2.MOV" controls playsinline onplay="this.muted=false" onended="playNextVideo()"></video></div>
+<div class="glass-video-card card-back"><video src="video3.MOV" controls playsinline onplay="this.muted=false" onended="playNextVideo()"></video></div>
+<div class="glass-video-card card-left"><video src="video4.mp4" controls playsinline onplay="this.muted=false" onended="playNextVideo()"></video></div>
+        </div>
+    </div>
 </div>
 
     <div id="features-section" class="unified-container bright-header reveal" style="text-align: left;">
@@ -837,7 +904,7 @@
         Glamour turns your lifestyle activities into<br> real Euro. It is where your daily routines<br>becomes your steady icome flow.<br>
          <span class="sliding-gold">Engage | Create and earn.</span>
     </p>
-</div>
+</div><br>
 
     <div class="unified-container">
         <div class="works-grid">
@@ -915,13 +982,18 @@
                 </div>
 
             <div class="unified-container work-box reveal">
-                <img src="hero8.jpg" alt="CAC Certified" onerror="this.src='https://via.placeholder.com/400x220/ffd700/000000?text=CAC+Certified'">
-                <h3><i class="fas fa-certificate"></i> GLAMOUR is CAC Certified</h3>
-                <p>GLAMOUR is officially registered with the Corporate Affairs Commission (CAC) Nigeria, confirming our legal status.
-                This certification shows that GLAMOUR is a recognized digital platform built for structured opportunities and innovation.
-                <i class="fas fa-check-double"></i> Registered. Verified. Trusted.</p>
-            </div>
-        </div>
+    <div class="cac-switcher" id="cacSwitcher">
+        <img src="hero8.jpg" alt="CAC Certified 1" id="cacImg1">
+        <img src="hero9.jpg" alt="CAC Certified 2" id="cacImg2" class="hidden">
+    </div>
+    <h3><i class="fas fa-certificate"></i> GLAMOUR is Nigeria & Europe Certified</h3>
+    <p>We are proud to announce that GLAMOUR is now officially recognized and verified through Nigeria CAC and a European incorporation registry, marking a major step forward in our journey.
+This milestone shows that what we’re building is structured, international, and positioned for real opportunities beyond borders.
+With strategic partnerships in place, Glamour is designed to connect you to a wider global network where your online activities can create real value.
+    <br>
+    <i class="fas fa-check-double"></i><span class="live-track">Registered. Verified. Trusted Globally.</h3></p>
+</div>
+ </div>
     </div>
 
     <div class="unified-container trust-section reveal">
@@ -950,7 +1022,7 @@
             </div>
         </div>
     </div>
-   <!-- 🔥 TESTIMONIALS UPDATED -->
+     <!-- 🔥 TESTIMONIALS UPDATED -->
 <div class="unified-container reveal" style="margin-top:60px;">
 <h2 style="text-align:center; font-weight:900; margin-bottom:30px;">WHAT OUR USERS SAY</h2>
 
@@ -1015,6 +1087,18 @@
   <i class="fas fa-location-dot" style="color:#ffd700;"></i>
 <span>Berlin, Germany </span>
 </div>
+<p id="viewMoreText" style="text-align:center; color:#ffd700; cursor:pointer; margin-top:10px;">
+    View more...
+</p>
+<script>
+const viewMore = document.getElementById("viewMoreText");
+
+if (viewMore) {
+    viewMore.addEventListener("click", function(){
+        location.reload(); // refresh page
+    });
+}
+</script>
 
 </div>
 </div>
@@ -1037,6 +1121,7 @@
 <p style="text-align:center; color:#aaa; margin-top:10px;">
 Your testimony will appear here.
 </p>
+</div>
 </div>
 
     <div id="faq-section" class="unified-container faq-section reveal">
@@ -1209,13 +1294,108 @@ function modernShrink(btn) {
         window.location.href = 'reward.html';
     }, 2000);
 }
+let cards = Array.from(document.querySelectorAll('.glass-video-card'));
+let currentIndex = 0;
+let isHoveringActive = true;
+let hoverDirection = 1;
+let hoverInterval;
 
+function updateStack() {
+    cards.forEach((card, i) => {
+        card.className = 'glass-video-card';
+        let pos = (i - currentIndex + cards.length) % cards.length;
+        if (pos === 0) card.classList.add('card-front');
+        else if (pos === 1) card.classList.add('card-right');
+        else if (pos === cards.length - 1) card.classList.add('card-left');
+        else card.classList.add('card-back');
+    });
+}
+
+function startHover() {
+    clearInterval(hoverInterval);
+    hoverInterval = setInterval(() => {
+        if (isHoveringActive) {
+            currentIndex = (currentIndex + hoverDirection + cards.length) % cards.length;
+            updateStack();
+        }
+    }, 3000);
+}
+
+// 1. SOUND & STOP: Triggered when any video starts playing
+document.getElementById('videoStack').addEventListener('play', (e) => {
+    isHoveringActive = false; 
+    e.target.muted = false; // Unmutes the video
+}, true);
+
+// 2. RESUME: When clicking anywhere outside the video area
+document.addEventListener('click', (e) => {
+    const area = document.getElementById('trigger-area');
+    if (!area.contains(e.target)) {
+        isHoveringActive = true;
+        document.querySelectorAll('video').forEach(v => { v.pause(); v.muted = true; });
+    }
+});
+
+// 3. JUMP: Moves to next video when one finishes
+function playNextVideo() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateStack();
+    setTimeout(() => {
+        const nextVid = document.querySelector('.card-front video');
+        if(nextVid) { nextVid.muted = false; nextVid.play(); }
+    }, 800);
+}
+
+// 4. SWIPE Direction
+let touchStartX = 0;
+document.getElementById('trigger-area').addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+document.getElementById('trigger-area').addEventListener('touchend', e => {
+    let touchEndX = e.changedTouches[0].clientX;
+    if (touchStartX - touchEndX > 50) { hoverDirection = 1; currentIndex++; }
+    if (touchEndX - touchStartX > 50) { hoverDirection = -1; currentIndex--; }
+    updateStack();
+});
+
+startHover();
+
+function startCacSwitcher() {
+    const img1 = document.getElementById('cacImg1');
+    const img2 = document.getElementById('cacImg2');
+    
+    setInterval(() => {
+        if (img1.classList.contains('hidden')) {
+            img1.classList.remove('hidden');
+            img2.classList.add('hidden');
+        } else {
+            img1.classList.add('hidden');
+            img2.classList.remove('hidden');
+        }
+    }, 4000); // Switches every 2 seconds
+}
+
+// Call this when the page loads
+window.addEventListener('DOMContentLoaded', startCacSwitcher);
 document.getElementById("commentForm").addEventListener("submit", function(e){
     e.preventDefault();
-    alert("your Testimony is Submitted! Waiting for admin approval.");
+
+    const popup = document.getElementById("glamourPopupMsg");
+    popup.classList.add("show");
+
     this.reset();
+
+    // auto close after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove("show");
+    }, 3000);
 });
-   
+
  </script>
+ <div id="glamourPopupMsg" class="glamour-popup">
+  <div class="popup-box">
+    <i class="fas fa-circle-check"></i>
+    <h3>Submitted Successfully</h3>
+    <p>Your testimony is under review. It will appear once approved.</p>
+  </div>
+</div>
 </body>
 </html>
