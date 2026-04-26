@@ -126,7 +126,6 @@
             font-size: 14px;
         }
 
-        /* Activity Pop-Up Styles */
         .notification-toast {
             position: fixed;
             bottom: 30px;
@@ -147,10 +146,8 @@
         }
 
         .notification-toast.active { left: 0; }
-
         .name-highlight { color: var(--gold); font-weight: 600; }
         .amount-highlight { color: var(--success-green); font-weight: 600; }
-        
         option { background: #1a1a1a; color: white; }
     </style>
 </head>
@@ -181,24 +178,51 @@
             </div>
 
             <div class="form-group">
-                <label>Residence (Country & Region)</label>
+                <label>Phone Number (Include Country Code)</label>
+                <input type="tel" id="reg-phone" placeholder="e.g. +234 90..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Residence (State/Country)</label>
                 <div class="input-container">
                     <select id="reg-location" required style="color: gray;" onchange="this.style.color='white'">
                         <option value="" disabled selected>Choose your location</option>
-                        <optgroup label="Nigeria">
-                            <option value="Lagos, Nigeria">Lagos</option>
-                            <option value="Abuja, Nigeria">Abuja</option>
-                            <option value="Rivers, Nigeria">Rivers</option>
-                            <option value="Enugu, Nigeria">Enugu</option>
-                            <option value="Other, Nigeria">Other (Nigeria)</option>
+                        <optgroup label="Nigeria (States)">
+                            <option value="Abia, Nigeria">Abia</option><option value="Adamawa, Nigeria">Adamawa</option>
+                            <option value="Akwa Ibom, Nigeria">Akwa Ibom</option><option value="Anambra, Nigeria">Anambra</option>
+                            <option value="Bauchi, Nigeria">Bauchi</option><option value="Bayelsa, Nigeria">Bayelsa</option>
+                            <option value="Benue, Nigeria">Benue</option><option value="Borno, Nigeria">Borno</option>
+                            <option value="Cross River, Nigeria">Cross River</option><option value="Delta, Nigeria">Delta</option>
+                            <option value="Ebonyi, Nigeria">Ebonyi</option><option value="Edo, Nigeria">Edo</option>
+                            <option value="Ekiti, Nigeria">Ekiti</option><option value="Enugu, Nigeria">Enugu</option>
+                            <option value="FCT Abuja, Nigeria">FCT Abuja</option><option value="Gombe, Nigeria">Gombe</option>
+                            <option value="Imo, Nigeria">Imo</option><option value="Jigawa, Nigeria">Jigawa</option>
+                            <option value="Kaduna, Nigeria">Kaduna</option><option value="Kano, Nigeria">Kano</option>
+                            <option value="Katsina, Nigeria">Katsina</option><option value="Kebbi, Nigeria">Kebbi</option>
+                            <option value="Kogi, Nigeria">Kogi</option><option value="Kwara, Nigeria">Kwara</option>
+                            <option value="Lagos, Nigeria">Lagos</option><option value="Nasarawa, Nigeria">Nasarawa</option>
+                            <option value="Niger, Nigeria">Niger</option><option value="Ogun, Nigeria">Ogun</option>
+                            <option value="Ondo, Nigeria">Ondo</option><option value="Osun, Nigeria">Osun</option>
+                            <option value="Oyo, Nigeria">Oyo</option><option value="Plateau, Nigeria">Plateau</option>
+                            <option value="Rivers, Nigeria">Rivers</option><option value="Sokoto, Nigeria">Sokoto</option>
+                            <option value="Taraba, Nigeria">Taraba</option><option value="Yobe, Nigeria">Yobe</option>
+                            <option value="Zamfara, Nigeria">Zamfara</option>
+                            <option value="Other State, Nigeria">Other (Nigeria)</option>
                         </optgroup>
-                        <optgroup label="Europe">
-                            <option value="London, UK">United Kingdom</option>
-                            <option value="Berlin, Germany">Germany</option>
-                            <option value="Paris, France">France</option>
-                            <option value="Madrid, Spain">Spain</option>
-                            <option value="Rome, Italy">Italy</option>
-                            <option value="Other, Europe">Other (Europe)</option>
+                        <optgroup label="Europe & Others">
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other Country">Other Country</option>
                         </optgroup>
                     </select>
                 </div>
@@ -229,6 +253,7 @@
         <div class="summary-box">
             <div class="summary-row"><span>Name:</span> <span id="sum-name">...</span></div>
             <div class="summary-row"><span>Username:</span> <span id="sum-user">...</span></div>
+            <div class="summary-row"><span>Phone:</span> <span id="sum-phone">...</span></div>
             <div class="summary-row"><span>Location:</span> <span id="sum-loc">...</span></div>
             <div class="summary-row" style="border:none; margin-top:10px;">
                 <span class="font-bold text-white">Activation Fee:</span>
@@ -278,32 +303,36 @@
             name: document.getElementById('reg-name').value,
             user: document.getElementById('reg-user').value,
             email: document.getElementById('reg-email').value,
+            phone: document.getElementById('reg-phone').value,
             location: document.getElementById('reg-location').value
         };
 
         document.getElementById('sum-name').innerText = formData.name;
         document.getElementById('sum-user').innerText = "@" + formData.user;
+        document.getElementById('sum-phone').innerText = formData.phone;
         document.getElementById('sum-loc').innerText = formData.location;
         document.getElementById('step-1').classList.add('hidden');
         document.getElementById('step-2').classList.remove('hidden');
     });
 
     document.getElementById('paystack-trigger').addEventListener('click', function() {
+        const glamourRef = "GLAMOUR-" + Math.floor((Math.random() * 1000000000) + 1);
+        
         const handler = PaystackPop.setup({
             key: PAYSTACK_KEY,
             email: formData.email,
             amount: 14000 * 100,
             currency: 'NGN',
+            ref: glamourRef,
             channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
             callback: function(response) {
-                const msg = `👑 *GLAMOUR REGISTRATION*%0A👤 Name: ${formData.name}%0A🆔 User: ${formData.user}%0A📍 Location: ${formData.location}%0A💰 Status: PAID 14,000 NGN`;
+                const msg = `👑 *GLAMOUR REGISTRATION*%0A👤 Name: ${formData.name}%0A🆔 User: ${formData.user}%0A📞 Phone: ${formData.phone}%0A📍 Location: ${formData.location}%0A💰 Status: PAID 14,000 NGN%0A🧾 Ref: ${response.reference}`;
                 window.location.href = `https://t.me/CoachMiracle1?text=${msg}`;
             }
         });
         handler.openIframe();
     });
 
-    // Dynamic Activity with Location-Specific Names
     const nigeriaNames = ["Chinonso", "Adebayo", "Ifeoma", "Olawale", "Blessing", "Tunde", "Chukwudi", "Amina", "Efe", "Zainab", "Emmanuel", "Precious", "Ruth", "Ndifreke"];
     const euroNames = ["Maximilian", "Chloe", "Alessandro", "Sophie", "Lucas", "Elena", "Matteo", "Isabella", "Hans", "Clara", "James", "Andrew", "Christopher", "Abigail", "Evelyn"];
     
@@ -311,8 +340,7 @@
         {name: "Lagos, Nigeria", isEuro: false}, {name: "London, UK", isEuro: true},
         {name: "Abuja, Nigeria", isEuro: false}, {name: "Berlin, Germany", isEuro: true},
         {name: "Port Harcourt, Nigeria", isEuro: false}, {name: "Paris, France", isEuro: true},
-        {name: "Enugu, Nigeria", isEuro: false}, {name: "Madrid, Spain", isEuro: true},
-        {name: "Kano, Nigeria", isEuro: false}, {name: "Amsterdam, Netherlands", isEuro: true}
+        {name: "Enugu, Nigeria", isEuro: false}, {name: "Madrid, Spain", isEuro: true}
     ];
 
     function showToast() {
@@ -321,23 +349,13 @@
         const timeDisplay = document.getElementById('toast-time');
         
         const loc = locations[Math.floor(Math.random() * locations.length)];
-        // Pick name based on location
         const user = loc.isEuro ? euroNames[Math.floor(Math.random() * euroNames.length)] : nigeriaNames[Math.floor(Math.random() * nigeriaNames.length)];
         
         const isRegister = Math.random() > 0.5;
-        let amtString = "";
+        let amtString = isRegister ? (loc.isEuro ? "€7" : "₦14,000") : (loc.isEuro ? "€" + (Math.floor(Math.random() * 50) + 10) : "₦" + ((Math.floor(Math.random() * 45) + 5) * 2000).toLocaleString());
 
-        if (isRegister) {
-            amtString = loc.isEuro ? "€7" : "₦14,000";
-            msg.innerHTML = `<span class="name-highlight">${user}</span> from ${loc.name} just <span class="text-white">registered</span> with <span class="amount-highlight">${amtString}</span>`;
-        } else {
-            const nairAmt = (Math.floor(Math.random() * 45) + 5) * 2000;
-            amtString = loc.isEuro ? "€" + (nairAmt / 2000) : "₦" + nairAmt.toLocaleString();
-            msg.innerHTML = `<span class="name-highlight">${user}</span> from ${loc.name} just <span class="text-white">withdrew</span> <span class="amount-highlight">${amtString}</span>`;
-        }
-
-        const mins = Math.floor(Math.random() * 9) + 1;
-        timeDisplay.innerText = Math.random() > 0.4 ? "Just now" : `${mins} mins ago`;
+        msg.innerHTML = `<span class="name-highlight">${user}</span> from ${loc.name} just <span class="text-white">${isRegister ? 'registered' : 'withdrew'}</span> <span class="amount-highlight">${amtString}</span>`;
+        timeDisplay.innerText = Math.random() > 0.4 ? "Just now" : `${Math.floor(Math.random() * 9) + 1} mins ago`;
         
         toast.classList.add('active');
         setTimeout(() => toast.classList.remove('active'), 5000);
