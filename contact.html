@@ -96,7 +96,7 @@
                     <i class="fas fa-envelope text-2xl gold-text mb-4"></i>
                     <h3 class="font-bold text-lg">Email Support</h3>
                     <p class="text-zinc-500 text-sm mb-4">Our team typically responds within 2 hours.</p>
-                    <a href="mailto:support@glamour.com" class="text-sm font-bold gold-text">support@glamour.com</a>
+                    <a href="mailto:support@glamour.com" class="text-sm font-bold gold-text">support@glamoureurope.site</a>
                 </div>
 
                 <div class="contact-method p-8 rounded-3xl bg-zinc-900/50">
@@ -116,21 +116,21 @@
 
             <div class="lg:col-span-2">
                 <div class="glass-container p-8 md:p-12">
-                    <form action="#" class="space-y-6">
+                    <form action="https://formspree.io/f/mpqkeape" method="POST" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Your Name</label>
-                                <input type="text" placeholder="John Doe" class="input-field w-full p-4 rounded-2xl">
+                                <input type="text" name="full_name" required placeholder="John Doe" class="input-field w-full p-4 rounded-2xl">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Email Address</label>
-                                <input type="email" placeholder="john@example.com" class="input-field w-full p-4 rounded-2xl">
+                                <input type="email" name="email" required placeholder="john@example.com" class="input-field w-full p-4 rounded-2xl">
                             </div>
                         </div>
 
                         <div class="space-y-2">
                             <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Subject</label>
-                            <select class="input-field w-full p-4 rounded-2xl appearance-none">
+                            <select name="subject" class="input-field w-full p-4 rounded-2xl appearance-none">
                                 <option>General Inquiry</option>
                                 <option>Activation Issue</option>
                                 <option>Withdrawal Support</option>
@@ -140,7 +140,7 @@
 
                         <div class="space-y-2">
                             <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Message</label>
-                            <textarea rows="5" placeholder="How can we help you today?" class="input-field w-full p-4 rounded-2xl"></textarea>
+                            <textarea name="message" required rows="5" placeholder="How can we help you today?" class="input-field w-full p-4 rounded-2xl"></textarea>
                         </div>
 
                         <button type="submit" class="send-btn w-full py-5 rounded-2xl flex items-center justify-center gap-3">
