@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +13,7 @@
             --glam-gold: #d4af37;
             --glam-black: #050505;
             --glam-red: #ff3b30;
+            --glam-green: #4ADE80;
         }
 
         body {
@@ -36,25 +35,22 @@
         }
 
         .topbar {
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 6%;
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: none;
         }
 
-        .logo-text {
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-            font-style: italic;
-        }
+        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo-img { height: 40px; width: auto; filter: drop-shadow(0 0 10px var(--glam-gold)); }
 
         .nav-link {
             color: rgba(255,255,255,0.7);
@@ -71,7 +67,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px 15px;
+            padding: 100px 15px 30px; /* Adjusted for fixed topbar */
         }
 
         .reward-box {
@@ -187,224 +183,43 @@
             letter-spacing: 1px;
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
-        .plan-button:active { transform: scale(0.97); }
 
-        /* ACTIVITY FEED - TOP LEFT */
+        /* UPDATED POP UP STYLES */
         .activity-feed-container {
             position: fixed; 
-            top: 20px; 
+            bottom: 20px; 
             left: -400px; 
             z-index: 2000; 
-            width: 300px; 
+            width: 90%;
+            max-width: 320px; 
             padding: 14px;
-            background: #0f0f0f; 
-            border: 1px solid rgba(212, 175, 55, 0.3); 
-            border-radius: 20px;
+            background: rgba(15, 15, 15, 0.95); 
+            border-left: 4px solid var(--glam-gold); 
+            border-radius: 0 20px 20px 0;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
-            transition: left 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            backdrop-filter: blur(10px);
+            transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1); 
         }
 
-        .show-activity { left: 20px; }
+        .show-activity { left: 0; }
+
         .activity-icon { 
-            width: 40px; height: 40px; 
+            width: 42px; height: 42px; 
             background: rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            margin-right: 12px; flex-shrink: 0; color: var(--glam-gold); font-size: 16px; 
-        }
-         .topbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-           background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            box-sizing: border-box;
-            border-bottom: none;
+            margin-right: 12px; flex-shrink: 0; 
+            color: #4A90E2; font-size: 20px; 
         }
 
-        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
-        .logo-img { height: 40px; width: auto; filter: drop-shadow(0 0 10px var(--primary-gold)); }
-        .topbar-controls { display: flex; align-items: center; gap: 15px; }
-
-.control-btn {
-    width: 40px; height: 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    cursor: pointer; font-size: 18px; transition: 0.3s;
-    backdrop-filter: blur(5px);
-}
-
-
-/* Expandable Menu Panel */
-.expandable-menu {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: radial-gradient(circle at top, #1a1500 0%, #000000 100%);
-    z-index: 1000; padding: 100px 5% 40px; box-sizing: border-box;
-    transform: translateY(-100%); opacity: 0;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
-}
-
-.expandable-menu.is-active { transform: translateY(0); opacity: 1; }
-
-.menu-link {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 0; color: #fff; text-decoration: none;
-    font-size: 19px; font-weight: 700; cursor: pointer;
-}
-
-/* Pages Dropdown & Faded Lines */
-.dropdown-menu {
-    max-height: 0; overflow: hidden; list-style: none; padding: 0;
-    transition: max-height 0.4s ease-out;
-}
-
-.dropdown-menu.expanded { max-height: 500px; }
-
-.dropdown-menu li {
-    border-bottom: 1px solid;
-    border-image: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.2), transparent) 1;
-}
-
-.dropdown-link {
-    display: block; padding: 18px 25px; color: #aaa; text-decoration: none;
-}
-
-/* Header inside the slide-down menu */
-.menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.menu-content {
-    margin-top: px; /* Space so links don't hit the menu header */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Thin icon styling again to ensure it stays light */
-.menu-header .control-btn i {
-    font-size: 18px;
-    font-weight: 300;
-    opacity: 0.8;
-}
-
-/* Arrow rotation for the "Pages" dropdown */
-.submenu-trigger i {
-    font-size: 14px;
-    transition: transform 0.3s ease;
-}
-
-.submenu-trigger.active i {
-    transform: rotate(180deg);
-}.topbar-controls { display: flex; align-items: center; gap: 15px; }
-
-.control-btn {
-    width: 40px; height: 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    cursor: pointer; font-size: 18px; transition: 0.3s;
-    backdrop-filter: blur(5px);
-}
-
-
-/* Expandable Menu Panel */
-.expandable-menu {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: radial-gradient(circle at top, #1a1500 0%, #000000 100%);
-    z-index: 1000; padding: 100px 5% 40px; box-sizing: border-box;
-    transform: translateY(-100%); opacity: 0;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
-}
-
-.expandable-menu.is-active { transform: translateY(0); opacity: 1; }
-
-.menu-link {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 0; color: #fff; text-decoration: none;
-    font-size: 19px; font-weight: 700; cursor: pointer;
-}
-
-/* Pages Dropdown & Faded Lines */
-.dropdown-menu {
-    max-height: 0; overflow: hidden; list-style: none; padding: 0;
-    transition: max-height 0.4s ease-out;
-}
-
-.dropdown-menu.expanded { max-height: 500px; }
-
-.dropdown-menu li {
-    border-bottom: 1px solid;
-    border-image: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.2), transparent) 1;
-}
-
-.dropdown-link {
-    display: block; padding: 18px 25px; color: #aaa; text-decoration: none;
-}
-
-/* Header inside the slide-down menu */
-.menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.menu-content {
-    margin-top: px; /* Space so links don't hit the menu header */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Thin icon styling again to ensure it stays light */
-.menu-header .control-btn i {
-    font-size: 18px;
-    font-weight: 300;
-    opacity: 0.8;
-}
-
-        .live-track {
-    color: var(--primary-gold); /* Keeps "Live track:" Gold */
-    font-weight: 600;
-    font-size: 9.5px;
-    margin-bottom: 10px;
-}
-
-/* Arrow rotation for the "Pages" dropdown */
-.submenu-trigger i {
-    font-size: 14px;
-    transition: transform 0.3s ease;
-}
-
-.submenu-trigger.active i {
-    transform: rotate(180deg);
-}
         #activity-text { flex-grow: 1; font-size: 11px; line-height: 1.4; color: #ccc; text-align: left; }
         .glam-brand { color: var(--glam-gold); font-weight: 800; font-style: italic; }
-        .activity-user { color: #ffffff; font-weight: 700; }
-        .activity-amount { color: #ffffff; font-weight: 900; }
+        
+        /* New Color Classes for Pop-up */
+        .activity-user { color: var(--glam-gold); font-weight: 700; }
+        .activity-amount { color: var(--glam-green); font-weight: 900; }
         .activity-amount.withdrawal { color: var(--glam-red); }
         .activity-time { color: rgba(255,255,255,0.3); font-size: 9px; display: block; margin-top: 2px; text-transform: uppercase; }
 
@@ -417,6 +232,7 @@
     <a class='logo-container' href='/'>
         <img src="logo.png" alt="G" class="logo-img">
     </a>
+    <div class="flex">
         <a class='nav-link' href='/'>Home</a>
         <a class='nav-link' href='/register' style='color: var(--glam-gold)'>Register</a>
     </div>
@@ -425,7 +241,7 @@
 <main>
     <div class="reward-box">
         <div class="plan-header">ONE TIME ACTIVATION</div>
-        <div classSprice-container">
+        <div class="price-container">
             <div class="old-price">₦25,000</div>
             <div class="new-price">₦14,000</div>
         </div>
@@ -460,9 +276,11 @@
 
 <div id="activity-feed" class="activity-feed-container">
     <div class="activity-icon">
-        <i id="act-icon" class="fas fa-star"></i>
+        <i class="fas fa-user-circle"></i>
     </div>
-    <div id="activity-text">Authenticating Glamour...</div>
+    <div id="activity-text">
+        Authenticating Glamour...
+    </div>
 </div>
 
 <script>
@@ -478,50 +296,57 @@
         }, 1000);
     }
 
-    const ACTIVITIES = [
-        { name: "Kofi A.", type: "withdrawn", amount: "GHS 420", country: "Ghana", time: "just now" },
-        { name: "Seyi Vibe", type: "withdrawn", amount: "₦45,000", country: "Nigeria", time: "just now" },
-        { name: "Musa K.", type: "joined", amount: "₦12,000", country: "Nigeria", time: "1m ago" },
-        { name: "Thabo M.", type: "withdrawn", amount: "ZAR 1,200", country: "South Africa", time: "2m ago" },
-        { name: "Bella 01", type: "claimed", amount: "₦10,000", country: "Nigeria", time: "3m ago" },
-        { name: "Elowen G.", type: "joined", amount: "GHS 130", country: "Ghana", time: "5m ago" },
-        { name: "Amara C.", type: "withdrawn", amount: "₦18,000", country: "Nigeria", time: "7m ago" },
-        { name: "Kamau P.", type: "claimed", amount: "KES 1,500", country: "Kenya", time: "8m ago" },
-        { name: "Fatima S.", type: "joined", amount: "₦12,000", country: "Nigeria", time: "10m ago" },
-        { name: "Osei B.", type: "withdrawn", amount: "GHS 950", country: "Ghana", time: "12m ago" },
-        { name: "Tobi_Luxury", type: "withdrawn", amount: "₦120,000", country: "Nigeria", time: "just now" },
-        { name: "Zinhle L.", type: "joined", amount: "ZAR 240", country: "South Africa", time: "15m ago" }
+    // Dynamic Lists based on location
+    const NIGERIA_NAMES = ["Chinonso", "Adebayo", "Ifeoma", "Olawale", "Ngozi", "Tunde", "Chukwudi", "Amina", "Zainab", "Seyi"];
+    const EURO_NAMES = ["Maximilian", "Chloe", "Alessandro", "Sophie", "Lucas", "Elena", "Matteo", "Isabella", "Hans", "Clara"];
+    
+    const LOCATIONS = [
+        { city: "Lagos, Nigeria", euro: false },
+        { city: "London, UK", euro: true },
+        { city: "Abuja, Nigeria", euro: false },
+        { city: "Berlin, Germany", euro: true },
+        { city: "Port Harcourt, Nigeria", euro: false },
+        { city: "Paris, France", euro: true },
+        { city: "Enugu, Nigeria", euro: false },
+        { city: "Madrid, Spain", euro: true }
     ];
-    let activityIndex = 0;
 
     function cycleActivityFeed() {
         const activityElement = document.getElementById('activity-text');
         const feedContainer = document.getElementById('activity-feed');
-        const actIcon = document.getElementById('act-icon');
-        const act = ACTIVITIES[activityIndex];
         
-        if (act.type === 'joined') {
-            actIcon.className = "fas fa-star";
-            activityElement.innerHTML = `<span class="activity-user">${act.name}</span> from ${act.country} started their <span class="glam-brand">GLAMOUR</span> journey!<span class="activity-time">${act.time}</span>`;
-        } else if (act.type === 'claimed') {
-            actIcon.className = "fas fa-gift";
-            activityElement.innerHTML = `<span class="activity-user">${act.name}</span> from ${act.country} claimed <span class="activity-amount">${act.amount}</span> <span class="glam-brand">GLAMOUR</span> Reward!<span class="activity-time">${act.time}</span>`;
+        // Randomly select location and name
+        const loc = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
+        const user = loc.euro ? EURO_NAMES[Math.floor(Math.random() * EURO_NAMES.length)] : NIGERIA_NAMES[Math.floor(Math.random() * NIGERIA_NAMES.length)];
+        
+        // Randomly select activity type
+        const type = Math.random() > 0.4 ? "withdrawn" : "joined";
+        let amountStr = "";
+
+        if (type === "joined") {
+            amountStr = loc.euro ? "€7" : "₦14,000";
+            activityElement.innerHTML = `
+                <span class="activity-user">${user}</span> from ${loc.city} just <span class="text-white">joined</span> with <span class="activity-amount">${amountStr}</span> to start their <span class="glam-brand">GLAMOUR</span> journey!
+                <span class="activity-time">Just now</span>`;
         } else {
-            actIcon.className = "fas fa-wallet";
-            activityElement.innerHTML = `<span class="activity-user">${act.name}</span> from ${act.country} withdrew <span class="activity-amount withdrawal">${act.amount}</span> from <span class="glam-brand">GLAMOUR</span>!<span class="activity-time">${act.time}</span>`;
+            // Random withdrawal amount (₦10k - ₦100k)
+            const nairAmt = (Math.floor(Math.random() * 45) + 5) * 2000;
+            amountStr = loc.euro ? "€" + (nairAmt / 2000) : "₦" + nairAmt.toLocaleString();
+            activityElement.innerHTML = `
+                <span class="activity-user">${user}</span> from ${loc.city} just <span class="text-white">withdrew</span> <span class="activity-amount withdrawal">${amountStr}</span> from <span class="glam-brand">GLAMOUR</span>!
+                <span class="activity-time">2 mins ago</span>`;
         }
 
         feedContainer.classList.add('show-activity');
         setTimeout(() => {
             feedContainer.classList.remove('show-activity');
-            activityIndex = (activityIndex + 1) % ACTIVITIES.length;
         }, 5000); 
     }
 
     window.onload = function () {
         startTimer(10 * 60, document.querySelector('#countdown'));
-        setTimeout(cycleActivityFeed, 2000);
-        setInterval(cycleActivityFeed, 10000); // 10s gap between cycles
+        setTimeout(cycleActivityFeed, 3000);
+        setInterval(cycleActivityFeed, 12000); 
     };
 </script>
 </body>
