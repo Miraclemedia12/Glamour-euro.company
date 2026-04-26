@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | GLAMOUR Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --glam-gold: #d4af37;
+            --glam-black: #050505;
+        }
+
+        body {
+            background-color: var(--glam-black);
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 32px;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--glam-gold);
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-method {
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .contact-method:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            color: black;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.4s;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body class="pt-20 pb-12">
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-black/90 backdrop-blur-md border-b border-white/5">
+        <div class="text-xl font-black italic gold-text">GLAMOUR</div>
+        <div class="flex gap-6">
+            <a href="index.html" class="text-[10px] uppercase font-bold tracking-widest text-zinc-400 hover:text-white transition">Home</a>
+            <a href="about.html" class="text-[10px] uppercase font-bold tracking-widest text-zinc-400 hover:text-white transition">About</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6">
+        
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4">GET IN <span class="gold-text">TOUCH</span></h1>
+            <p class="text-zinc-500 uppercase tracking-[4px] text-xs font-bold">Experience concierge support</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1 space-y-4">
+                <div class="contact-method p-8 rounded-3xl bg-zinc-900/50">
+                    <i class="fas fa-envelope text-2xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg">Email Support</h3>
+                    <p class="text-zinc-500 text-sm mb-4">Our team typically responds within 2 hours.</p>
+                    <a href="mailto:support@glamour.com" class="text-sm font-bold gold-text">support@glamour.com</a>
+                </div>
+
+                <div class="contact-method p-8 rounded-3xl bg-zinc-900/50">
+                    <i class="fab fa-whatsapp text-2xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg">Direct Chat</h3>
+                    <p class="text-zinc-500 text-sm mb-4">Available for high-priority activation issues.</p>
+                    <a href="https://wa.me/2349050139052" class="text-sm font-bold gold-text">Chat with an Active Agent</a>
+                </div>
+
+                <div class="contact-method p-8 rounded-3xl bg-zinc-900/50">
+                    <i class="fas fa-clock text-2xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg">Hours</h3>
+                    <p class="text-zinc-500 text-sm">Mon - Fri: 8am - 10pm</p>
+                    <p class="text-zinc-500 text-sm">Weekends: 10am - 4pm</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="glass-container p-8 md:p-12">
+                    <form action="#" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Your Name</label>
+                                <input type="text" placeholder="John Doe" class="input-field w-full p-4 rounded-2xl">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Email Address</label>
+                                <input type="email" placeholder="john@example.com" class="input-field w-full p-4 rounded-2xl">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Subject</label>
+                            <select class="input-field w-full p-4 rounded-2xl appearance-none">
+                                <option>General Inquiry</option>
+                                <option>Activation Issue</option>
+                                <option>Withdrawal Support</option>
+                                <option>Partnership</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase font-black tracking-widest text-zinc-500 ml-2">Message</label>
+                            <textarea rows="5" placeholder="How can we help you today?" class="input-field w-full p-4 rounded-2xl"></textarea>
+                        </div>
+
+                        <button type="submit" class="send-btn w-full py-5 rounded-2xl flex items-center justify-center gap-3">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane text-sm"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-24 border-t border-white/5 pt-12 text-center">
+            <h4 class="text-xs uppercase tracking-[6px] font-black text-zinc-600 mb-8">Follow the lifestyle</h4>
+            <div class="flex justify-center gap-10">
+                <a href="#" class="text-zinc-500 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition text-2xl"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition text-2xl"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition text-2xl"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <footer class="mt-20 text-center">
+            <p class="text-[9px] text-zinc-700 uppercase tracking-[4px] font-bold">© 2026 GLAMOUR — SOFT LIFE DEFINED</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
