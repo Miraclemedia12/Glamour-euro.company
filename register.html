@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     
     <style>
         :root {
@@ -149,6 +149,14 @@
         .name-highlight { color: var(--gold); font-weight: 600; }
         .amount-highlight { color: var(--success-green); font-weight: 600; }
         option { background: #1a1a1a; color: white; }
+        
+        /* Custom error style for password mismatch */
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -178,7 +186,7 @@
             </div>
 
             <div class="form-group">
-                <label>Phone Number (Include Country Code)</label>
+                <label>Phone Number</label>
                 <input type="tel" id="reg-phone" placeholder="e.g. +234 90..." required>
             </div>
 
@@ -187,8 +195,7 @@
                 <div class="input-container">
                     <select id="reg-location" required style="color: gray;" onchange="this.style.color='white'">
                         <option value="" disabled selected>Choose your location</option>
-                        <optgroup label="Africa">
-                            <option value="Nigeria">Nigeria</option>
+                        <option value="Nigeria">Nigeria</option>
                             <option value="Ghana">Ghana</option>
                             <option value="South Africa">South Africa</option>
                             <option value="Kenya">Kenya</option>
@@ -230,7 +237,6 @@
                             <option value="Canada">Canada</option>
                             <option value="Australia">Australia</option>
                             <option value="Other">Other</option>
-                        </optgroup>
                     </select>
                 </div>
             </div>
@@ -249,6 +255,8 @@
                     <input type="password" id="reg-confirm" placeholder="••••••••" required>
                     <i class="fas fa-eye toggle-password" onclick="togglePass('reg-confirm', this)"></i>
                 </div>
+                <!-- Custom Error Message instead of browser alert -->
+                <p id="password-error" class="error-msg"><i class="fas fa-exclamation-circle"></i> Passwords do not match!</p>
             </div>
 
             <button type="submit" class="btn-gold mt-4">Create Account</button>
@@ -267,7 +275,7 @@
                 <span class="font-bold text-xl gold-text">14,000 NGN</span>
             </div>
         </div>
-        <button id="paystack-trigger" class="btn-gold">Pay ₦14,000 via Paystack</button>
+        <button id="flutterwave-trigger" class="btn-gold">Pay ₦14,000 via Flutterwave</button>
         <button onclick="location.reload()" class="w-full text-gray-500 text-xs mt-4 underline">Edit Info</button>
     </div>
 </div>
@@ -286,7 +294,7 @@
 </div>
 
 <script>
-    const PAYSTACK_KEY = 'Pk_live_ed525c84b668b33982b108f17c1e057e94cb52e3';
+    const FLUTTERWAVE_KEY = 'FLWPUBK-43704d9975cf827a40723d9abbdd00d8-X';
     let formData = {};
 
     function togglePass(id, icon) {
@@ -304,7 +312,14 @@
         e.preventDefault();
         const p1 = document.getElementById('reg-pass').value;
         const p2 = document.getElementById('reg-confirm').value;
-        if(p1 !== p2) { alert("Passwords do not match!"); return; }
+        const errorText = document.getElementById('password-error');
+
+        if(p1 !== p2) { 
+            errorText.style.display = "block"; // Show custom text
+            return; 
+        } else {
+            errorText.style.display = "none";
+        }
 
         formData = {
             name: document.getElementById('reg-name').value,
@@ -322,47 +337,47 @@
         document.getElementById('step-2').classList.remove('hidden');
     });
 
-    document.getElementById('paystack-trigger').addEventListener('click', function() {
+    document.getElementById('flutterwave-trigger').addEventListener('click', function() {
         const glamourRef = "GLAMOUR-" + Math.floor((Math.random() * 1000000000) + 1);
         
-        const handler = PaystackPop.setup({
-            key: PAYSTACK_KEY,
-            email: formData.email,
-            amount: 14000 * 100,
-            currency: 'NGN',
-            ref: glamourRef,
-            channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
-            callback: function(response) {
-                const msg = `👑 *GLAMOUR REGISTRATION*%0A👤 Name: ${formData.name}%0A🆔 User: ${formData.user}%0A📞 Phone: ${formData.phone}%0A📍 Location: ${formData.location}%0A💰 Status: PAID 14,000 NGN%0A🧾 Ref: ${response.reference}`;
-                window.location.href = `https://t.me/CoachMiracle1?text=${msg}`;
+        FlutterwaveCheckout({
+            public_key: FLUTTERWAVE_KEY,
+            tx_ref: glamourRef,
+            amount: 14000,
+            currency: "NGN",
+            // This order triggers the "Select Payment Method" screen as the default view
+            payment_options: "banktransfer, account, ussd, card", 
+            customer: {
+                email: formData.email,
+                phone_number: formData.phone,
+                name: formData.name,
+            },
+            customizations: {
+                title: "flutterwave/MiracleMedia enterprise",
+                description: "Creator Account Activation Fee",
+                logo: "https://www.google.com/s2/favicons?sz=64&domain=glamourcompany.site",
+            },
+            callback: function (data) {
+                if (data.status === "successful") {
+                    const msg = `👑 *GLAMOUR REGISTRATION*%0A👤 Name: ${formData.name}%0A🆔 User: ${formData.user}%0A📞 Phone: ${formData.phone}%0A📍 Location: ${formData.location}%0A💰 Status: PAID 14,000 NGN%0A🧾 Ref: ${data.transaction_id}`;
+                    window.location.href = `https://t.me/CoachMiracle1?text=${msg}`;
+                }
             }
         });
-        handler.openIframe();
     });
 
-    const nigeriaNames = ["Chinonso", "Adebayo", "Ifeoma", "Olawale", "Blessing", "Tunde", "Chukwudi", "Amina", "Efe", "Zainab", "Emmanuel", "Precious", "Ruth", "Ndifreke"];
-    const euroNames = ["Maximilian", "Chloe", "Alessandro", "Sophie", "Lucas", "Elena", "Matteo", "Isabella", "Hans", "Clara", "James", "Andrew", "Christopher", "Abigail", "Evelyn"];
-    
-    const locations = [
-        {name: "Lagos, Nigeria", isEuro: false}, {name: "London, UK", isEuro: true},
-        {name: "Abuja, Nigeria", isEuro: false}, {name: "Berlin, Germany", isEuro: true},
-        {name: "Port Harcourt, Nigeria", isEuro: false}, {name: "Paris, France", isEuro: true},
-        {name: "Enugu, Nigeria", isEuro: false}, {name: "Madrid, Spain", isEuro: true}
-    ];
-
+    // Activity Toast Logic
     function showToast() {
         const toast = document.getElementById('toast');
         const msg = document.getElementById('toast-msg');
-        const timeDisplay = document.getElementById('toast-time');
         
-        const loc = locations[Math.floor(Math.random() * locations.length)];
-        const user = loc.isEuro ? euroNames[Math.floor(Math.random() * euroNames.length)] : nigeriaNames[Math.floor(Math.random() * nigeriaNames.length)];
+        const names = ["Chinonso", "Adebayo", "Ifeoma", "Olawale", "Blessing", "Tunde"];
+        const locs = ["Lagos, Nigeria", "London, UK", "Accra, Ghana", "Abuja, Nigeria"];
         
-        const isRegister = Math.random() > 0.5;
-        let amtString = isRegister ? (loc.isEuro ? "€7" : "₦14,000") : (loc.isEuro ? "€" + (Math.floor(Math.random() * 50) + 10) : "₦" + ((Math.floor(Math.random() * 45) + 5) * 2000).toLocaleString());
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        const randomLoc = locs[Math.floor(Math.random() * locs.length)];
 
-        msg.innerHTML = `<span class="name-highlight">${user}</span> from ${loc.name} just <span class="text-white">${isRegister ? 'registered' : 'withdrew'}</span> <span class="amount-highlight">${amtString}</span>`;
-        timeDisplay.innerText = Math.random() > 0.4 ? "Just now" : `${Math.floor(Math.random() * 9) + 1} mins ago`;
+        msg.innerHTML = `<span class="name-highlight">${randomName}</span> from ${randomLoc} just <span class="text-white">registered</span> <span class="amount-highlight">₦14,000</span>`;
         
         toast.classList.add('active');
         setTimeout(() => toast.classList.remove('active'), 5000);
