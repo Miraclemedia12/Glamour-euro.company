@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glamour Activation | Create Your Creator Account</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    
+
+    <!-- KORA SCRIPT -->
+    <script src="https://korablobstorage.blob.core.windows.net/modal-bucket/korapay-collections.min.js"></script>
+
     <style>
         :root {
             --gold: #F5C24C;
@@ -27,7 +32,10 @@
 
         .luxury-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0e0e0e 100%);
             z-index: -1;
         }
@@ -68,9 +76,13 @@
             font-weight: 600;
         }
 
-        .input-container { position: relative; width: 100%; }
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
 
-        .form-group input, .form-group select {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 15px;
             background: rgba(255, 255, 255, 0.05);
@@ -81,7 +93,8 @@
             appearance: none;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--gold);
             background: rgba(255, 255, 255, 0.08);
@@ -126,31 +139,11 @@
             font-size: 14px;
         }
 
-        .notification-toast {
-            position: fixed;
-            bottom: 30px;
-            left: -450px; 
-            width: 90%;
-            max-width: 350px;
-            background: rgba(15, 15, 15, 0.98);
-            border-left: 4px solid var(--gold);
-            backdrop-filter: blur(20px);
-            padding: 15px;
-            border-radius: 0 15px 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            z-index: 9999;
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+        option {
+            background: #1a1a1a;
+            color: white;
         }
 
-        .notification-toast.active { left: 0; }
-        .name-highlight { color: var(--gold); font-weight: 600; }
-        .amount-highlight { color: var(--success-green); font-weight: 600; }
-        option { background: #1a1a1a; color: white; }
-        
-        /* Custom error style for password mismatch */
         .error-msg {
             color: #ff4d4d;
             font-size: 12px;
@@ -159,17 +152,27 @@
         }
     </style>
 </head>
+
 <body>
 
 <div class="luxury-bg"></div>
+
 <div class="nav-logo gold-text">GLAMOUR</div>
 
 <div class="register-card">
+
     <div id="step-1">
-        <h2 class="text-3xl font-bold text-center mb-2" style="font-family: 'Cinzel', serif;">Join Glamour</h2>
-        <p class="text-gray-400 text-center text-sm mb-8">Start earning in Euros & Pounds today.</p>
+
+        <h2 class="text-3xl font-bold text-center mb-2" style="font-family: 'Cinzel', serif;">
+            Join Glamour
+        </h2>
+
+        <p class="text-gray-400 text-center text-sm mb-8">
+            Start earning in Euros & Pounds today.
+        </p>
 
         <form id="glamour-reg-form" class="space-y-4">
+
             <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" id="reg-name" placeholder="John Doe" required>
@@ -179,7 +182,7 @@
                 <label>Username</label>
                 <input type="text" id="reg-user" placeholder="glamour_creator" required>
             </div>
-            
+
             <div class="form-group">
                 <label>Email Address</label>
                 <input type="email" id="reg-email" placeholder="contact@example.com" required>
@@ -187,11 +190,11 @@
 
             <div class="form-group">
                 <label>Phone Number</label>
-                <input type="tel" id="reg-phone" placeholder="e.g. +234 90..." required>
+                <input type="tel" id="reg-phone" placeholder="+234..." required>
             </div>
 
             <div class="form-group">
-                <label>Residence (Country)</label>
+                   <label>Residence (Country)</label>
                 <div class="input-container">
                     <select id="reg-location" required style="color: gray;" onchange="this.style.color='white'">
                         <option value="" disabled selected>Choose your location</option>
@@ -212,7 +215,6 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                             <option value="Zambia">Zambia</option>
                             <option value="Other Africa">Other African Country</option>
-                        </optgroup>
                         <optgroup label="Europe">
                             <option value="United Kingdom">United Kingdom</option>
                             <option value="Germany">Germany</option>
@@ -235,156 +237,233 @@
                         <optgroup label="Other Regions">
                             <option value="United States">United States</option>
                             <option value="Canada">Canada</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Other">Other</option>
+                            <option value="Australia">Australia</option.>
                     </select>
+
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
+
                 <div class="input-container">
+
                     <input type="password" id="reg-pass" placeholder="••••••••" required>
+
                     <i class="fas fa-eye toggle-password" onclick="togglePass('reg-pass', this)"></i>
+
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
+
                 <div class="input-container">
+
                     <input type="password" id="reg-confirm" placeholder="••••••••" required>
+
                     <i class="fas fa-eye toggle-password" onclick="togglePass('reg-confirm', this)"></i>
+
                 </div>
-                <!-- Custom Error Message instead of browser alert -->
-                <p id="password-error" class="error-msg"><i class="fas fa-exclamation-circle"></i> Passwords do not match!</p>
+
+                <p id="password-error" class="error-msg">
+                    Passwords do not match!
+                </p>
+
             </div>
 
-            <button type="submit" class="btn-gold mt-4">Create Account</button>
+            <button type="submit" class="btn-gold">
+                Create Account
+            </button>
+
         </form>
+
     </div>
+
+    <!-- STEP 2 -->
 
     <div id="step-2" class="hidden">
-        <h2 class="text-2xl font-bold text-center mb-2 gold-text" style="font-family: 'Cinzel', serif;">Verify Details</h2>
-        <div class="summary-box">
-            <div class="summary-row"><span>Name:</span> <span id="sum-name">...</span></div>
-            <div class="summary-row"><span>Username:</span> <span id="sum-user">...</span></div>
-            <div class="summary-row"><span>Phone:</span> <span id="sum-phone">...</span></div>
-            <div class="summary-row"><span>Location:</span> <span id="sum-loc">...</span></div>
-            <div class="summary-row" style="border:none; margin-top:10px;">
-                <span class="font-bold text-white">Activation Fee:</span>
-                <span class="font-bold text-xl gold-text">14,000 NGN</span>
-            </div>
-        </div>
-        <button id="flutterwave-trigger" class="btn-gold">Pay ₦14,000 via Flutterwave</button>
-        <button onclick="location.reload()" class="w-full text-gray-500 text-xs mt-4 underline">Edit Info</button>
-    </div>
-</div>
 
-<div id="toast" class="notification-toast">
-    <div class="bg-blue-500/10 p-2 rounded-full">
-        <i class="fas fa-user-circle text-blue-400 text-lg"></i>
-    </div>
-    <div>
-        <div class="flex justify-between items-center gap-4">
-            <div class="text-[9px] text-gray-500 font-bold uppercase tracking-tighter">Real-time Activity</div>
-            <div id="toast-time" class="text-[9px] text-gold-500 font-medium" style="color: var(--gold);">Just now</div>
+        <h2 class="text-2xl font-bold text-center mb-2 gold-text" style="font-family: 'Cinzel', serif;">
+            Verify Details
+        </h2>
+
+        <div class="summary-box">
+
+            <div class="summary-row">
+                <span>Name:</span>
+                <span id="sum-name"></span>
+            </div>
+
+            <div class="summary-row">
+                <span>Username:</span>
+                <span id="sum-user"></span>
+            </div>
+
+            <div class="summary-row">
+                <span>Phone:</span>
+                <span id="sum-phone"></span>
+            </div>
+
+            <div class="summary-row">
+                <span>Location:</span>
+                <span id="sum-loc"></span>
+            </div>
+
+            <div class="summary-row" style="border:none; margin-top:10px;">
+                <span class="font-bold text-white">
+                    Activation Fee:
+                </span>
+
+                <span class="font-bold text-xl gold-text">
+                    ₦14,000
+                </span>
+            </div>
+
         </div>
-        <div id="toast-msg" class="text-xs text-white leading-tight"></div>
+
+        <button id="kora-trigger" class="btn-gold">
+            Pay ₦14,000 via Kora
+        </button>
+
+        <button onclick="location.reload()" class="w-full text-gray-500 text-xs mt-4 underline">
+            Edit Info
+        </button>
+
     </div>
+
 </div>
 
 <script>
-    const FLUTTERWAVE_KEY = 'FLWPUBK-43704d9975cf827a40723d9abbdd00d8-X';
-    let formData = {};
 
-    function togglePass(id, icon) {
-        const input = document.getElementById(id);
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.replace("fa-eye", "fa-eye-slash");
-        } else {
-            input.type = "password";
-            icon.classList.replace("fa-eye-slash", "fa-eye");
-        }
+const KORA_PUBLIC_KEY = "pk_live_fAx1oGYBCWXy5J5FeNNxuXzvDDW7ZciX4muTCAS9";
+
+let formData = {};
+
+function togglePass(id, icon) {
+
+    const input = document.getElementById(id);
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+
+    } else {
+
+        input.type = "password";
+
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+
+    }
+}
+
+document.getElementById('glamour-reg-form').addEventListener('submit', function(e) {
+
+    e.preventDefault();
+
+    const p1 = document.getElementById('reg-pass').value;
+    const p2 = document.getElementById('reg-confirm').value;
+
+    const errorText = document.getElementById('password-error');
+
+    if (p1 !== p2) {
+
+        errorText.style.display = "block";
+
+        return;
+
     }
 
-    document.getElementById('glamour-reg-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const p1 = document.getElementById('reg-pass').value;
-        const p2 = document.getElementById('reg-confirm').value;
-        const errorText = document.getElementById('password-error');
+    errorText.style.display = "none";
 
-        if(p1 !== p2) { 
-            errorText.style.display = "block"; // Show custom text
-            return; 
-        } else {
-            errorText.style.display = "none";
-        }
+    formData = {
 
-        formData = {
-            name: document.getElementById('reg-name').value,
-            user: document.getElementById('reg-user').value,
-            email: document.getElementById('reg-email').value,
-            phone: document.getElementById('reg-phone').value,
-            location: document.getElementById('reg-location').value
-        };
+        name: document.getElementById('reg-name').value,
 
-        document.getElementById('sum-name').innerText = formData.name;
-        document.getElementById('sum-user').innerText = "@" + formData.user;
-        document.getElementById('sum-phone').innerText = formData.phone;
-        document.getElementById('sum-loc').innerText = formData.location;
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-2').classList.remove('hidden');
-    });
+        user: document.getElementById('reg-user').value,
 
-    document.getElementById('flutterwave-trigger').addEventListener('click', function() {
-        const glamourRef = "GLAMOUR-" + Math.floor((Math.random() * 1000000000) + 1);
-        
-        FlutterwaveCheckout({
-            public_key: FLUTTERWAVE_KEY,
-            tx_ref: glamourRef,
-            amount: 14000,
-            currency: "NGN",
-            // This order triggers the "Select Payment Method" screen as the default view
-            payment_options: "banktransfer, account, ussd, card", 
-            customer: {
-                email: formData.email,
-                phone_number: formData.phone,
-                name: formData.name,
-            },
-            customizations: {
-                title: "flutterwave/MiracleMedia enterprise",
-                description: "Creator Account Activation Fee",
-                logo: "https://www.google.com/s2/favicons?sz=64&domain=glamourcompany.site",
-            },
-            callback: function (data) {
-                if (data.status === "successful") {
-                    const msg = `👑 *GLAMOUR REGISTRATION*%0A👤 Name: ${formData.name}%0A🆔 User: ${formData.user}%0A📞 Phone: ${formData.phone}%0A📍 Location: ${formData.location}%0A💰 Status: PAID 14,000 NGN%0A🧾 Ref: ${data.transaction_id}`;
-                    window.location.href = `https://t.me/CoachMiracle1?text=${msg}`;
-                }
-            }
-        });
-    });
+        email: document.getElementById('reg-email').value,
 
-    // Activity Toast Logic
-    function showToast() {
-        const toast = document.getElementById('toast');
-        const msg = document.getElementById('toast-msg');
-        
-        const names = ["Chinonso", "Adebayo", "Ifeoma", "Olawale", "Blessing", "Tunde"];
-        const locs = ["Lagos, Nigeria", "London, UK", "Accra, Ghana", "Abuja, Nigeria"];
-        
-        const randomName = names[Math.floor(Math.random() * names.length)];
-        const randomLoc = locs[Math.floor(Math.random() * locs.length)];
+        phone: document.getElementById('reg-phone').value,
 
-        msg.innerHTML = `<span class="name-highlight">${randomName}</span> from ${randomLoc} just <span class="text-white">registered</span> <span class="amount-highlight">₦14,000</span>`;
-        
-        toast.classList.add('active');
-        setTimeout(() => toast.classList.remove('active'), 5000);
-        setTimeout(showToast, 15000); 
+        location: document.getElementById('reg-location').value
+
+    };
+
+    document.getElementById('sum-name').innerText = formData.name;
+
+    document.getElementById('sum-user').innerText = "@" + formData.user;
+
+    document.getElementById('sum-phone').innerText = formData.phone;
+
+    document.getElementById('sum-loc').innerText = formData.location;
+
+    document.getElementById('step-1').classList.add('hidden');
+
+    document.getElementById('step-2').classList.remove('hidden');
+
+});
+
+document.getElementById('kora-trigger').addEventListener('click', function () {
+
+    if (!window.Korapay) {
+
+        alert("Kora SDK failed to load");
+
+        return;
+
     }
 
-    setTimeout(showToast, 4000);
+    const glamourRef = "GLAMOUR-" + Date.now();
+
+    window.Korapay.initialize({
+
+        key: KORA_PUBLIC_KEY,
+
+        reference: glamourRef,
+
+        amount: 14000,
+
+        currency: "NGN",
+
+        customer: {
+
+            name: formData.name,
+
+            email: formData.email
+
+        },
+
+        notification_url: "https://example.com",
+
+        onSuccess: function (data) {
+
+            const msg =
+                `👑 *GLAMOUR REGISTRATION*%0A` +
+                `👤 Name: ${formData.name}%0A` +
+                `🆔 User: ${formData.user}%0A` +
+                `📞 Phone: ${formData.phone}%0A` +
+                `📍 Location: ${formData.location}%0A` +
+                `💰 Status: PAID 14,000 NGN%0A` +
+                `🧾 Ref: ${data.reference}`;
+
+            window.location.href =
+                `https://t.me/CoachMiracle1?text=${msg}`;
+
+        },
+
+        onClose: function () {
+
+            console.log("Payment closed");
+
+        }
+
+    });
+
+});
+
 </script>
 
 </body>
